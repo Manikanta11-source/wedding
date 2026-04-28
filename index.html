@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Wedding Invitation</title>
+
+    <style>
+        body {
+            margin: 0;
+            font-family: 'Georgia', serif;
+            background: linear-gradient(#fff5e6, #ffe0cc);
+            text-align: center;
+            overflow-x: hidden;
+        }
+
+        .card {
+            background: #fff;
+            border-radius: 20px;
+            padding: 30px;
+            max-width: 500px;
+            margin: 40px auto;
+            box-shadow: 0px 0px 20px rgba(0,0,0,0.2);
+            border: 3px solid #d4af37;
+            animation: fadeIn 2s ease-in-out;
+            position: relative;
+            z-index: 2;
+        }
+
+        .names {
+            font-size: 32px;
+            color: #b22222;
+            font-weight: bold;
+            animation: zoomIn 2s ease;
+        }
+
+        .divider {
+            margin: 15px 0;
+            font-size: 24px;
+        }
+
+        .countdown {
+            font-size: 22px;
+            margin-top: 15px;
+            color: #8B0000;
+            font-weight: bold;
+        }
+
+        .code-box {
+            background: #1e1e1e;
+            color: #00ffcc;
+            padding: 15px;
+            border-radius: 10px;
+            text-align: left;
+            margin-top: 20px;
+            font-family: monospace;
+            font-size: 14px;
+        }
+
+        .flower {
+            font-size: 28px;
+        }
+
+        button {
+            margin-top: 15px;
+            padding: 10px 20px;
+            border: none;
+            background: #b22222;
+            color: white;
+            border-radius: 8px;
+            cursor: pointer;
+        }
+
+        /* Animations */
+        @keyframes fadeIn {
+            from {opacity: 0; transform: translateY(30px);}
+            to {opacity: 1; transform: translateY(0);}
+        }
+
+        @keyframes zoomIn {
+            from {transform: scale(0.7);}
+            to {transform: scale(1);}
+        }
+
+        /* Falling flowers */
+        .flower-fall {
+            position: fixed;
+            top: -10px;
+            font-size: 20px;
+            animation: fall linear infinite;
+            z-index: 1;
+        }
+
+        @keyframes fall {
+            to {
+                transform: translateY(100vh);
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+<div class="card">
+
+    <div class="flower">🌸🌼🌸</div>
+
+    <h2>శుభ ముహూర్తం</h2>
+
+    <p>With the blessings of our elders</p>
+
+    <div class="names">
+        Akhila 💖 Sai Manikanta
+    </div>
+
+    <div class="divider">॥ శ్రీ ॥</div>
+
+    <h3>📅 03 May 2026</h3>
+    <h3>⏰ ముహూర్తం: ఉదయం 10:56</h3>
+    <h3>📍 Sri Venkateswara Swamy Temple, Dwaraka Tirumala</h3>
+
+    <!-- Countdown -->
+    <div class="countdown" id="countdown"></div>
+
+    <!-- Music -->
+    <button onclick="playMusic()">🎶 Play Music</button>
+
+    <!-- IT Invite -->
+    <div class="code-box">
+        function weddingInvitation() { <br>
+        &nbsp;&nbsp;const bride = "Akhila"; <br>
+        &nbsp;&nbsp;const groom = "Sai Manikanta"; <br><br>
+
+        &nbsp;&nbsp;if (you.available) { <br>
+        &nbsp;&nbsp;&nbsp;&nbsp;attendWedding(bride, groom); <br>
+        &nbsp;&nbsp;&nbsp;&nbsp;blessCouple(); <br>
+        &nbsp;&nbsp;} else { <br>
+        &nbsp;&nbsp;&nbsp;&nbsp;rescheduleEverything(); 😄 <br>
+        &nbsp;&nbsp;} <br>
+        } <br><br>
+
+        weddingInvitation();
+    </div>
+
+    <p>Your presence = TRUE ❤️</p>
+
+    <div class="flower">🌸🌼🌸</div>
+
+</div>
+
+<!-- Background Music -->
+<audio id="bgMusic" loop>
+    <source src="https://www.bensound.com/bensound-music/bensound-love.mp3" type="audio/mp3">
+</audio>
+
+<!-- Temple Bell -->
+<audio id="bellSound">
+    <source src="https://www.soundjay.com/misc/sounds/bell-ringing-05.mp3" type="audio/mp3">
+</audio>
+
+<script>
+    function playMusic() {
+        document.getElementById("bgMusic").play();
+    }
+
+    // Play bell on load
+    window.onload = function() {
+        document.getElementById("bellSound").play().catch(() => {});
+    };
+
+    // Countdown
+    var weddingDate = new Date("May 3, 2026 10:56:00").getTime();
+
+    var x = setInterval(function() {
+        var now = new Date().getTime();
+        var distance = weddingDate - now;
+
+        var days = Math.floor(distance / (1000 * 60 * 60 * 24));
+        var hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+        var minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+        var seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+        document.getElementById("countdown").innerHTML =
+            "⏳ " + days + "d " + hours + "h " + minutes + "m " + seconds + "s left";
+
+        if (distance < 0) {
+            clearInterval(x);
+            document.getElementById("countdown").innerHTML = "🎉 Wedding Day!";
+        }
+    }, 1000);
+
+    // Flower animation generator
+    function createFlower() {
+        const flower = document.createElement("div");
+        flower.classList.add("flower-fall");
+        flower.innerHTML = "🌸";
+        flower.style.left = Math.random() * 100 + "vw";
+        flower.style.animationDuration = (3 + Math.random() * 5) + "s";
+        document.body.appendChild(flower);
+
+        setTimeout(() => {
+            flower.remove();
+        }, 8000);
+    }
+
+    setInterval(createFlower, 500);
+</script>
+
+</body>
+</html>
